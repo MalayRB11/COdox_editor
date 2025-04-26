@@ -53,49 +53,39 @@ import { Button } from "@/components/ui/button";
 
 const LineHeightButton = () => {
     const { editor } = useEditorStore();
-
+    
     const lineHeights = [
-        { label: "Default", value: "normal" },
-        { label: "Single", value: "1" },
-        { label: "1.15", value: "1.15" },
-        { label: "1.5", value: "1.5" },
-        { label: "Double", value: "2" },
+        { label: "Default", value: "normal"},
+        { label: "Single", value: "1"},
+        { label: "1.15", value: "1.15"},
+        { label: "1.5", value: "1.5"},
+        { label: "Double", value: "2"},
     ];
-
-    return (
+    return(
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <button
-                    className={cn(
-                        "h-9 w-9 flex items-center justify-center rounded-full transition-all",
-                        "bg-white text-blue-950 shadow-md hover:shadow-lg",
-                        "hover:scale-110 hover:bg-gradient-to-tr from-pink-400 via-purple-400 to-indigo-400 hover:text-white",
-                        "active:scale-95"
-                    )}
-                >
-                    <ListCollapseIcon className="size-5" />
+                className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm" >
+                    <ListCollapseIcon className="size-4" />
                 </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="p-1 flex flex-col gap-y-1 bg-white shadow-xl rounded-xl">
-                {lineHeights.map(({ label, value }) => (
+            <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+                {lineHeights.map (({ label, value }) => (
                     <button
                         key={value}
                         onClick={() => editor?.chain().focus().setLineHeight(value).run()}
-                        className={cn(
-                            "flex items-center gap-x-2 px-3 py-2 rounded-md text-sm transition-all",
-                            "hover:bg-gradient-to-tr from-purple-200 via-pink-200 to-red-200 hover:text-indigo-900",
-                            editor?.getAttributes("paragraph").lineHeight === value &&
-                                "bg-gradient-to-tr from-indigo-500 to-purple-500 text-white"
+                        className= {cn(
+                            "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
+                            editor?.getAttributes("paragraph").lineHeight === value && "bg-neutral-200/80"
                         )}
-                    >
-                        {label}
+                    >   
+                        <span className="text-sm">{label}</span>
                     </button>
                 ))}
             </DropdownMenuContent>
         </DropdownMenu>
     );
-};
-
+}
 
 // const FontSizeButton = () => {
 //     const { editor } = useEditorStore();
@@ -284,7 +274,7 @@ const FontSizeButton = () => {
 
 const ListButton = () => {
     const { editor } = useEditorStore();
-
+    
     const lists = [
         {
             label: "Bullet List",
@@ -298,48 +288,39 @@ const ListButton = () => {
             isActive: () => editor?.isActive("orderedList"),
             onClick: () => editor?.chain().focus().toggleOrderedList().run(),
         },
-    ];
-
-    return (
+    ]
+    return(
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <button
-                    className={cn(
-                        "h-9 w-9 flex items-center justify-center rounded-full transition-all",
-                        "bg-white text-blue-950 shadow-md hover:shadow-lg",
-                        "hover:scale-110 hover:bg-gradient-to-tr from-pink-400 via-purple-400 to-indigo-400 hover:text-white",
-                        "active:scale-95"
-                    )}
-                >
-                    <ListIcon className="size-5" />
+                className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm" >
+                    <ListIcon className="size-4" />
                 </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="p-1 flex flex-col gap-y-1 bg-white shadow-lg rounded-xl">
-                {lists.map(({ label, icon: Icon, onClick, isActive }) => (
+            <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+                {lists.map (({ label, icon: Icon, onClick, isActive}) => (
                     <button
                         key={label}
                         onClick={onClick}
-                        className={cn(
-                            "flex items-center gap-x-2 px-3 py-2 rounded-md text-sm transition-all",
-                            "hover:bg-gradient-to-tr from-purple-200 via-pink-200 to-red-200 hover:text-indigo-900",
-                            isActive() && "bg-gradient-to-tr from-indigo-500 to-purple-500 text-white"
+                        className= {cn(
+                            "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
+                            isActive() && "bg-neutral-200/80"
                         )}
                     >
                         <Icon className="size-4" />
-                        {label}
+                        <span className="text-sm">{label}</span>
                     </button>
                 ))}
             </DropdownMenuContent>
         </DropdownMenu>
-    );
-};
-
+    )
+}
 
 
 
 const AlignButton = () => {
     const { editor } = useEditorStore();
-
+    
     const alignments = [
         {
             label: "Align Left",
@@ -361,43 +342,33 @@ const AlignButton = () => {
             value: "justify",
             icon: AlignJustifyIcon,
         },
-    ];
-
-    return (
+    ]
+    return(
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <button
-                    className={cn(
-                        "h-9 w-9 flex items-center justify-center rounded-full transition-all",
-                        "bg-white text-blue-950 shadow-md hover:shadow-lg",
-                        "hover:scale-110 hover:bg-gradient-to-tr from-indigo-400 via-purple-400 to-pink-400 hover:text-white",
-                        "active:scale-95"
-                    )}
-                >
-                    <AlignLeftIcon className="size-5" />
+                className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm" >
+                    <AlignLeftIcon className="size-4" />
                 </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="p-1 flex flex-col gap-y-1 bg-white shadow-lg rounded-xl">
-                {alignments.map(({ label, value, icon: Icon }) => (
+            <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+                {alignments.map (({ label, value, icon: Icon}) => (
                     <button
                         key={value}
                         onClick={() => editor?.chain().focus().setTextAlign(value).run()}
-                        className={cn(
-                            "flex items-center gap-x-2 px-3 py-2 rounded-md text-sm transition-all",
-                            "hover:bg-gradient-to-tr from-purple-200 via-pink-200 to-red-200 hover:text-indigo-900",
-                            editor?.isActive({ textAlign: value }) &&
-                                "bg-gradient-to-tr from-indigo-500 to-purple-500 text-white"
+                        className= {cn(
+                            "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
+                            editor?.isActive({ textAlign: value }) && "bg-neutral-200/80"
                         )}
                     >
                         <Icon className="size-4" />
-                        <span>{label}</span>
+                        <span className="text-sm">{label}</span>
                     </button>
                 ))}
             </DropdownMenuContent>
         </DropdownMenu>
-    );
-};
-
+    )
+}
 
 const ImageButton = () => {
     const { editor } = useEditorStore();
@@ -405,7 +376,7 @@ const ImageButton = () => {
     const [imageUrl, setImageUrl] = useState(editor?.getAttributes("link").href || "");
 
     const onChange = (src: string) => {
-        editor?.chain().focus().setImage({ src }).run();
+        editor?.chain().focus().setImage({ src }).run()
     };
 
     const onUpload = () => {
@@ -415,85 +386,71 @@ const ImageButton = () => {
 
         input.onchange = (e) => {
             const file = (e.target as HTMLInputElement).files?.[0];
-            if (file) {
+            if(file){
                 const imageUrl = URL.createObjectURL(file);
                 onChange(imageUrl);
-            }
-        };
+            }   
+        }
         input.click();
     };
 
     const handleImageUrlSubmit = () => {
-        if (imageUrl) {
+        if(imageUrl) {
             onChange(imageUrl);
             setImageUrl("");
             setIsDialogOpen(false);
         }
     };
 
-    return (
+
+    return(
         <>
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <button
-                        className={cn(
-                            "h-9 w-9 flex items-center justify-center rounded-full transition-all",
-                            "bg-white text-blue-950 shadow-md hover:shadow-lg",
-                            "hover:scale-110 hover:bg-gradient-to-tr from-pink-400 via-purple-400 to-indigo-400 hover:text-white",
-                            "active:scale-95"
-                        )}
-                    >
-                        <ImageIcon className="size-5" />
-                    </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-white shadow-xl rounded-xl p-1">
-                    <DropdownMenuItem
-                        onClick={onUpload}
-                        className="flex items-center gap-x-2 px-3 py-2 rounded-md transition-all hover:bg-gradient-to-tr from-purple-200 via-pink-200 to-red-200 hover:text-indigo-900"
-                    >
-                        <UploadIcon className="size-4" />
-                        Upload
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                        onClick={() => setIsDialogOpen(true)}
-                        className="flex items-center gap-x-2 px-3 py-2 rounded-md transition-all hover:bg-gradient-to-tr from-purple-200 via-pink-200 to-red-200 hover:text-indigo-900"
-                    >
-                        <SearchIcon className="size-4" />
-                        Paste image URL
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
+        <DropdownMenu >
+            <DropdownMenuTrigger asChild>
+                <button
+                className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm" >
+                    <ImageIcon className="size-4" />
+                </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent >
+                <DropdownMenuItem onClick={onUpload}>
+                    <UploadIcon className="size-4 mr-2"/>
+                    Upload
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={()=> setIsDialogOpen(true)}>
+                    <SearchIcon className="size-4 mr-2"/>
+                    Paste image url
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
 
-            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogContent className="rounded-xl border border-purple-200 shadow-2xl">
-                    <DialogHeader>
-                        <DialogTitle className="text-lg font-semibold text-purple-700">Insert Image URL</DialogTitle>
-                    </DialogHeader>
-                    <Input
-                        placeholder="https://example.com/image.png"
-                        value={imageUrl}
-                        onChange={(e) => setImageUrl(e.target.value)}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter") {
-                                handleImageUrlSubmit();
-                            }
-                        }}
-                        className="mt-2"
-                    />
-                    <DialogFooter>
-                        <Button
-                            onClick={handleImageUrlSubmit}
-                            className="bg-gradient-to-tr from-purple-500 via-pink-500 to-red-500 text-white hover:opacity-90"
-                        >
-                            Insert
-                        </Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Insert Image URl</DialogTitle>
+                </DialogHeader>
+                <Input 
+                    placeholder="Insert image URL"
+                    value={imageUrl}
+                    onChange={(e) => setImageUrl(e.target.value)}
+                    onKeyDown={(e) => {
+                        if(e.key === "Enter") {
+                            handleImageUrlSubmit();
+                        }
+                    }}
+                />
+                <DialogFooter>
+                <Button onClick={handleImageUrlSubmit}>
+                    Insert
+                </Button>
+            </DialogFooter>
+            </DialogContent>
+            
+        </Dialog>
         </>
-    );
-};
+    )
 
+};
 
 
 const LinkButton = () => {
@@ -501,120 +458,86 @@ const LinkButton = () => {
     const [value, setValue] = useState(editor?.getAttributes("link").href || "");
 
     const onChange = (href: string) => {
-        editor?.chain().focus().extendMarkRange("link").setLink({ href }).run();
+        editor?.chain().focus().extendMarkRange("link").setLink({ href }).run()
         setValue("");
     };
-
-    return (
-        <DropdownMenu
-            onOpenChange={(open) => {
-                if (open) {
-                    setValue(editor?.getAttributes("link").href || "");
-                }
-            }}
-        >
+    return(
+        <DropdownMenu onOpenChange={(open) => {
+            if (open) {
+            setValue(editor?.getAttributes("link").href || "")
+            }
+            }} >
             <DropdownMenuTrigger asChild>
                 <button
-                    className={cn(
-                        "h-9 w-9 flex items-center justify-center rounded-full transition-all",
-                        "bg-white text-blue-950 shadow-md hover:shadow-lg",
-                        "hover:scale-110 hover:bg-gradient-to-tr from-pink-400 via-purple-400 to-indigo-400 hover:text-white",
-                        "active:scale-95"
-                    )}
-                >
-                    <Link2Icon className="size-5" />
+                className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm" >
+                    <Link2Icon className="size-4" />
                 </button>
             </DropdownMenuTrigger>
-
-            <DropdownMenuContent className="bg-white shadow-xl rounded-xl p-3 flex flex-col gap-2 min-w-[260px]">
+            <DropdownMenuContent className="p-2.5 flex items-center gap-x-2">
                 <Input
                     placeholder="https://example.com"
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
-                    className="rounded-full border border-purple-300 focus:border-purple-500 focus:ring-0 transition-all"
-                />
-                <Button
-                    onClick={() => onChange(value)}
-                    className="w-full bg-gradient-to-tr from-purple-500 via-pink-500 to-red-500 text-white rounded-full hover:opacity-90 transition-all"
-                >
-                    Apply
+                    value = {value}
+                    onChange = {(e) => setValue(e.target.value)}
+                 />
+                <Button onClick={() => onChange(value)}>
+                Apply    
                 </Button>
             </DropdownMenuContent>
         </DropdownMenu>
-    );
-};
+    )
 
+};
 
 const TextColorButton = () => {
     const { editor } = useEditorStore();
     const value = editor?.getAttributes("textStyle").color || "#000000";
-
     const onChange = (color: ColorResult) => {
         editor?.chain().focus().setColor(color.hex).run();
     };
 
-    return (
+    return(
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <button
-                    className={cn(
-                        "h-9 w-9 flex flex-col items-center justify-center rounded-full transition-all",
-                        "bg-white text-blue-950 shadow-md hover:shadow-lg",
-                        "hover:scale-110 hover:bg-gradient-to-tr from-pink-400 via-purple-400 to-indigo-400 hover:text-white",
-                        "active:scale-95"
-                    )}
-                >
-                    <span className="text-[13px] font-semibold">A</span>
-                    <div
-                        className="h-1 w-4 rounded-full mt-0.5"
-                        style={{ backgroundColor: value }}
-                    />
+                className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm" >
+                    <span className="text-xs">A</span>
+                    <div className="h-0.5 w-full" style={{ backgroundColor: value }} />
                 </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="p-3 bg-white shadow-xl rounded-xl">
-                <CirclePicker
+            <DropdownMenuContent className="p-2.5">
+                <CirclePicker 
                     color={value}
                     onChange={onChange}
-                    className="!w-auto !flex !justify-center "
                 />
             </DropdownMenuContent>
         </DropdownMenu>
-    );
-};
-
+    )
+}
 
 const HighlightColorButton = () => {
     const { editor } = useEditorStore();
     const value = editor?.getAttributes("highlight").color || "#FFFFFF";
-
     const onChange = (color: ColorResult) => {
         editor?.chain().focus().setHighlight({ color: color.hex }).run();
     };
 
-    return (
+    return(
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <button
-                    className={cn(
-                        "h-9 w-9 flex items-center justify-center rounded-full transition-all",
-                        "bg-white text-blue-950 shadow-md hover:shadow-lg",
-                        "hover:scale-110 hover:bg-gradient-to-tr from-yellow-300 via-orange-400 to-pink-400 hover:text-white",
-                        "active:scale-95"
-                    )}
-                >
-                    <HighlighterIcon className="size-5" />
+                className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm" >
+                    <HighlighterIcon className="size-4" />
                 </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="p-3 bg-white shadow-xl rounded-xl">
-                <CirclePicker
-                    color={value}
+            <DropdownMenuContent className="p-2.5">
+                <CirclePicker 
+                    color = { value }
                     onChange={onChange}
-                    className="!w-auto !flex !justify-center"
                 />
             </DropdownMenuContent>
         </DropdownMenu>
-    );
-};
+    )
+}
 
 const HeadingLevelButton = () => {
     const { editor } = useEditorStore();
@@ -971,23 +894,23 @@ export const Toolbar = () => {
         ]
     ];
         return(
-        <div className = "bg-[rgba(243,246,249,0.3)] px-2.5 py-0.5 rounded-[24px] min-h-[45px]  flex items-center justify-center gap-x-1 overflow-x-auto text-blue-950 w-fit mx-auto mb-2 ">
+        <div className = "bg-[#f3f6f9] px-2.5 py-0.5 rounded-[24px] min-h-[45px]  flex items-center justify-center gap-x-0.5 overflow-x-auto text-blue-950 w-fit mx-auto mb-2 ">
             {sections[0].map((item)=>(
                 <ToolbarButton key = {item.label} {...item} />
             ))}
-            <Separator orientation="vertical" className="h-9 bg-neutral-300" />
+            <Separator orientation="vertical" className="h-6 bg-neutral-300" />
             <FontFamilyButton />
-            <Separator orientation="vertical" className="h-9 bg-neutral-300" />
+            <Separator orientation="vertical" className="h-6 bg-neutral-300" />
             <HeadingLevelButton />
-            <Separator orientation="vertical" className="h-9 bg-neutral-300" />
+            <Separator orientation="vertical" className="h-6 bg-neutral-300" />
             <FontSizeButton />
-            <Separator orientation="vertical" className="h-9 bg-neutral-300" />
+            <Separator orientation="vertical" className="h-6 bg-neutral-300" />
             {sections[1].map((item) => (
                 <ToolbarButton key={item.label} {...item} />
             ))}
             <TextColorButton />
             <HighlightColorButton />
-            <Separator orientation="vertical" className="h-9 bg-neutral-300" />
+            <Separator orientation="vertical" className="h-6 bg-neutral-300" />
             <LinkButton />
             <ImageButton />
             <AlignButton />

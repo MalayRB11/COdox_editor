@@ -21,11 +21,23 @@ import TextAlign from '@tiptap/extension-text-align'
 import { FontSizeExtension } from '@/extensions/font-size';
 import { LineHeightExtension } from '@/extensions/line-height';
 import { Ruler } from './ruler';
+import { useLiveblocksExtension } from "@liveblocks/react-tiptap";
+import { Threads } from './threads';
+import { useStorage } from '@liveblocks/react';
+import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from '@/constants/margins';
 
 
 
 
 export const Editor = () => {
+
+    const leftMargin = useStorage((root) => root.leftMargin) ?? LEFT_MARGIN_DEFAULT;
+    const rightMargin = useStorage((root) => root.rightMargin) ?? RIGHT_MARGIN_DEFAULT;  
+
+    const liveblocks = useLiveblocksExtension({
+        
+        offlineSupport_experimental: true,
+    });
 
     const { setEditor }= useEditorStore(); 
 
@@ -59,18 +71,21 @@ export const Editor = () => {
         },
         editorProps: {
             attributes: {
-                style: "padding-left: 56px; padding-right: 56px",
+                style: `padding-left: ${leftMargin}px; padding-right: ${rightMargin}px`,
                 class: "focus:outline-none print:border-0 bg-white border border-[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text "
             },
         },
         extensions: [
+            liveblocks,
             TextStyle,
             Color,
             Highlight.configure({
                 multicolor: true,
             }),
             Underline,
-            StarterKit,
+            StarterKit.configure({
+                history: false,
+            }),
             FontSizeExtension,
             LineHeightExtension,
             TextAlign.configure({
@@ -98,10 +113,12 @@ export const Editor = () => {
       })
     
     return(
-        <div className='size-full overflow-x-auto bg-[#F9FBFD] px-4 print:p-0 print:bg-white print:overflow-visible'>
+        <div className='size-full  text-black overflow-x-auto  px-4 print:p-0 print:bg-white print:overflow-visible'>
             <Ruler />
             <div className='min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0 '>
             <EditorContent editor={editor} />
+            <Threads editor={editor} />
+        
             </div>
         </div>
     );

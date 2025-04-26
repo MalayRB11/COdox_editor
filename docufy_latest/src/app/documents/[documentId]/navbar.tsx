@@ -22,6 +22,7 @@ import {
     Undo2Icon,
  } from "lucide-react";
 import { BsFilePdf } from "react-icons/bs";
+import { Avatars } from "./avatars";
 
 import {
     Menubar,
@@ -37,13 +38,44 @@ import {
 } from "@/components/ui/menubar";
 
 import { useEditorStore } from "@/store/use-editor-store";
+import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
+import { Inbox } from "./inbox";
+import { Doc } from "../../../../convex/_generated/dataModel";
+import { useMutation } from "convex/react";
+import { api } from "../../../../convex/_generated/api";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+
+import { RenameDialog } from "@/components/rename-dialog";
+import { RemoveDialog } from "@/components/remove-dialog";
+
+
+
+interface NavbarProps {
+    data: Doc<"documents">;
+};
 
 
 
 
-export const Navbar = () => {
+export const Navbar = ({ data }: NavbarProps) => {
 
+    const router = useRouter();
     const { editor }  = useEditorStore();
+
+    const mutation = useMutation(api.documents.create);
+
+    const onNewDocument = () => {
+        mutation({
+            title: "Untitled document",
+            initialContent: ""
+        })
+        .catch(() => toast.error("Something went wrong"))
+        .then((id) => {
+            toast.success("Document created")
+            router.push(`/documents/${id}`)
+        });
+    }
     const insertTable = ({ rows, cols }: { rows: number, cols: number }) => {
         editor
         ?.chain()
@@ -66,7 +98,7 @@ export const Navbar = () => {
         const blob = new Blob([JSON.stringify(content)], {
             type: "application/json",
         });
-        onDownload(blob, `document.json`) //TODO: use document name
+        onDownload(blob, `${data.title}.json`) 
     };
 
     const onSaveHTML = () => {
@@ -75,7 +107,7 @@ export const Navbar = () => {
         const blob = new Blob([content], {
             type: "text/html",
         });
-        onDownload(blob, `document.html`) //TODO: use document name
+        onDownload(blob, `${data.title}.html`) 
     };
 
     const onSaveText = () => {
@@ -84,7 +116,7 @@ export const Navbar = () => {
         const blob = new Blob([content], {
             type: "text/plain",
         });
-        onDownload(blob, `document.txt`) //TODO: use document name
+        onDownload(blob, `${data.title}.txt`) 
     };
 
     return (
@@ -94,11 +126,11 @@ export const Navbar = () => {
                     <Image src ="/CO.png" alt = "logo" width={72} height={72}/>
                 </Link>
                 <div className="flex flex-col">
-                    <DocumentInput />
+                    <DocumentInput title={data.title} id={data._id}/>
                     <div className="flex">
                         <Menubar className="border-none bg-transparent shadow-none h-auto p-0">
                             <MenubarMenu >
-                                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto">
+                                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted hover:text-black h-auto">
                                 File
                                 </MenubarTrigger>    
                                 <MenubarContent className="print:hidden">
@@ -126,19 +158,29 @@ export const Navbar = () => {
                                             </MenubarItem> 
                                         </MenubarSubContent>    
                                     </MenubarSub>
-                                    <MenubarItem>
+                                    <MenubarItem onClick={onNewDocument}>
                                         <FilePlusIcon className="size-4 mr-2"/>
                                         New Document
                                     </MenubarItem>
                                     <MenubarSeparator />
-                                    <MenubarItem>
-                                        <FilePenIcon className="size-4 mr-2" />
-                                        Rename
-                                    </MenubarItem>
-                                    <MenubarItem>
-                                        <TrashIcon className="size-4 mr-2" />
-                                        Remove
-                                    </MenubarItem>
+                                    <RenameDialog documentId={data._id} initialTitle={data.title}>
+                                        <MenubarItem
+                                            onClick={(e) => e.stopPropagation()}
+                                            onSelect={(e) => e.preventDefault()}
+                                        >
+                                            <FilePenIcon className="size-4 mr-2" />
+                                            Rename
+                                        </MenubarItem>
+                                    </RenameDialog>
+                                    <RemoveDialog documentId={data._id}>
+                                        <MenubarItem
+                                            onClick={(e) => e.stopPropagation()}
+                                            onSelect={(e) => e.preventDefault()}
+                                        >
+                                            <TrashIcon className="size-4 mr-2" />
+                                            Remove
+                                        </MenubarItem>
+                                    </RemoveDialog>
                                     <MenubarSeparator />
                                     <MenubarItem onClick={() => window.print()}>
                                         <PrinterIcon className="size-4  mr-2" />
@@ -147,7 +189,7 @@ export const Navbar = () => {
                                 </MenubarContent>
                             </MenubarMenu>   
                             <MenubarMenu>
-                                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto">
+                                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted hover:text-black h-auto">
                                     Edit
                                 </MenubarTrigger>   
                                 <MenubarContent>
@@ -162,7 +204,7 @@ export const Navbar = () => {
                                 </MenubarContent> 
                             </MenubarMenu> 
                             <MenubarMenu>
-                                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto">
+                                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted hover:text-black h-auto">
                                     Insert
                                 </MenubarTrigger>    
                                 <MenubarContent>
@@ -186,7 +228,7 @@ export const Navbar = () => {
                                 </MenubarContent>
                             </MenubarMenu> 
                             <MenubarMenu>
-                                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto">
+                                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted hover:text-black h-auto">
                                     Format
                                 </MenubarTrigger>    
                                 <MenubarContent>
@@ -223,6 +265,23 @@ export const Navbar = () => {
                         </Menubar>    
                     </div>
                 </div>
+            </div>
+            <div className="flex gap-3 items-center pl-6 ">
+                <Avatars />
+                <Inbox />
+                <OrganizationSwitcher
+                appearance={{
+                    elements: {
+                      organizationSwitcherTrigger: 'text-white font-semibold glow-text ',
+                    },
+                  }}
+                afterCreateOrganizationUrl="/"
+                afterLeaveOrganizationUrl="/"
+                afterSelectOrganizationUrl="/"
+                afterSelectPersonalUrl="/"
+                />
+                <UserButton />
+                
             </div>
             
         </nav>
