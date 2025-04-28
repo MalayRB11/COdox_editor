@@ -2,8 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { SearchInput } from "./search-input";
 import { UserButton, OrganizationSwitcher } from "@clerk/nextjs";
+import { useEffect } from "react";
+
 
 export const Navbar = () => {
+
+
     return (
         <nav className="flex items-center justify-between ">
             <div className="flex gap-3 items-center shrink-0 pr-6 ">
