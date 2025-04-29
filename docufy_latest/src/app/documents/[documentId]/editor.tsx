@@ -25,6 +25,7 @@ import { useLiveblocksExtension } from "@liveblocks/react-tiptap";
 import { Threads } from './threads';
 import { useStorage } from '@liveblocks/react';
 import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from '@/constants/margins';
+import { SidebarBox } from '@/components/sidebar-box';
 
 
 
@@ -112,14 +113,21 @@ export const Editor = () => {
         ],
       })
     
-    return(
-        <div className='size-full  text-black overflow-x-auto  px-4 print:p-0 print:bg-white print:overflow-visible'>
-            <Ruler />
-            <div className='min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0 '>
+      return (
+        <div className="relative size-full text-black overflow-x-auto px-4 print:p-0 print:bg-white print:overflow-visible">
+          <Ruler />
+      
+          {/* SidebarBox - independent from editor */}
+          <div className="hidden lg:block fixed top-[112px] left-4 z-40">
+            <SidebarBox />
+          </div>
+      
+          {/* Centered Editor and Threads */}
+          <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
             <EditorContent editor={editor} />
             <Threads editor={editor} />
-        
-            </div>
+          </div>
         </div>
-    );
+      );
+      
 };

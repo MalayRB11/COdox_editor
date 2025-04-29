@@ -4,7 +4,7 @@ import * as Tooltip from '@radix-ui/react-tooltip';
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useEditorStore } from "@/store/use-editor-store";
-import { ColorResult, CirclePicker } from "react-color";
+import { ColorResult, SketchPicker } from "react-color";
 import { type Level } from "@tiptap/extension-heading";
 import { 
     AlignCenterIcon,
@@ -483,10 +483,10 @@ const TextColorButton = () => {
                 </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="p-3 bg-white shadow-xl rounded-xl">
-                <CirclePicker
+                <SketchPicker
                     color={value}
                     onChange={onChange}
-                    className="!w-auto !flex !justify-center"
+                    className=" !justify-center"
                 />
             </DropdownMenuContent>
         </DropdownMenu>
@@ -517,10 +517,10 @@ const HighlightColorButton = () => {
                 </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="p-3 bg-white shadow-xl rounded-xl">
-                <CirclePicker
+                <SketchPicker
                     color={value}
                     onChange={onChange}
-                    className="!w-auto !flex !justify-center"
+                    className="!justify-center"
                 />
             </DropdownMenuContent>
         </DropdownMenu>

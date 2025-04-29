@@ -82,17 +82,32 @@ export default {
   				to: {
   					height: '0'
   				}
-  			}
+  			},
+			  typingDots: {
+				'0%, 20%': { content: "' '" },
+				'40%': { content: "'.'" },
+				'60%': { content: "'..'" },
+				'80%, 100%': { content: "'...'" },
+			  },
+			  bounce1: {
+				'0%, 80%, 100%': { transform: 'scale(0)' },
+				'40%': { transform: 'scale(1)' }
+			  },
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out',
 			bounce: 'bounce 0.3s ease-in-out',
+			typingDots: 'typingDots 1.2s steps(4, end) infinite',
+  			bounce1: 'bounce1 1.4s infinite',
 			
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+	require("tailwindcss-animate"),
+	require("tailwind-scrollbar"),
+],
 } satisfies Config;
 
 
