@@ -203,7 +203,7 @@ export const Navbar = ({ data }: NavbarProps) => {
                                     </MenubarItem>
                                 </MenubarContent> 
                             </MenubarMenu> 
-                            <MenubarMenu>
+                            <MenubarMenu> 
                                 <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted hover:text-black h-auto">
                                     Insert
                                 </MenubarTrigger>    

@@ -1,6 +1,5 @@
 "use client";
 
-import * as Tooltip from '@radix-ui/react-tooltip';
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useEditorStore } from "@/store/use-editor-store";
@@ -486,7 +485,7 @@ const TextColorButton = () => {
                 <SketchPicker
                     color={value}
                     onChange={onChange}
-                    className=" !justify-center"
+                    className="!justify-center"
                 />
             </DropdownMenuContent>
         </DropdownMenu>
@@ -645,11 +644,6 @@ const FontFamilyButton = () => {
         </DropdownMenu>
     );
 };
-
-
-
-
-
 
 
 interface ToolbarButtonProps {
