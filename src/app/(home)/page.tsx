@@ -27,17 +27,6 @@ const Home = () => {
 
       {/* Main Content */}
       <div className="pt-20 px-4 sm:px-6 max-w-6xl mx-auto space-y-10 pb-10">
-        {/* Welcome
-        <section className="text-center">
-          <h1 className="text-4xl sm:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-blue-400">
-            Welcome to Your Dashboard
-          </h1>
-          <p className="text-gray-300 mt-2 text-lg max-w-xl mx-auto">
-            Explore templates and manage your documents in style.
-          </p>
-        </section> */}
-
-
         {/* Templates */}
         <section className="bg-white/10 p-6 rounded-2xl shadow-lg backdrop-blur-sm border border-white/20 mt-6">
           <h2 className="text-2xl font-semibold text-slate-300 mb-4">

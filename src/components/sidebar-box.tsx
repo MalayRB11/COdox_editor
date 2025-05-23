@@ -37,7 +37,7 @@ export const SidebarBox = () => {
   // }, [messages]);
 
   return (
-    <div className="bg-white/10 rounded-xl p-4 w-80 h-[500px] text-white flex flex-col">
+    <div className="bg-white/10 rounded-xl p-4 w-80 h-[500px] text-white flex flex-col ">
       <div className="flex justify-between items-center mb-2">
         <h2
           className="text-xl font-semibold text-white"
