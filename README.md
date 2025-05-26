@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+#Note: This repository do not holds the landing/home page's source code. For that visit my another repository as COdox_landing_page.
+
 ## Getting Started
 
 First, run the development server:
